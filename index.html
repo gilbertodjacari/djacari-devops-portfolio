@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gilberto Duarte Djacari — Platform Engineer / DevOps Engineer</title>
+<meta name="description" content="Portfólio de Gilberto Duarte Djacari, Platform Engineer / DevOps Engineer especializado em Terraform, Azure, Kubernetes e CI/CD.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink-900:#0B1E33;
+    --ink-850:#0E243C;
+    --ink-800:#122B47;
+    --ink-750:#16324F;
+    --line:rgba(148,197,224,0.16);
+    --line-strong:rgba(148,197,224,0.34);
+    --paper:#E9F1F7;
+    --paper-dim:#A9C1D6;
+    --paper-dimmer:#7893AC;
+    --amber:#F2A93B;
+    --amber-dim:#C98A2E;
+    --cyan:#6FD8E0;
+    --cyan-dim:#4FA6AD;
+    --radius:2px;
+    --mono:'JetBrains Mono', ui-monospace, monospace;
+    --display:'Space Grotesk', sans-serif;
+    --body:'Inter', sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--ink-900);
+    color:var(--paper);
+    font-family:var(--body);
+    font-size:16px;
+    line-height:1.6;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:44px 44px;
+    background-position:-1px -1px;
+  }
+
+  a{color:inherit;}
+  ::selection{background:var(--amber); color:var(--ink-900);}
+
+  :focus-visible{
+    outline:2px solid var(--amber);
+    outline-offset:3px;
+  }
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ---------- Corner stamps (blueprint framing) ---------- */
+  .frame-corner{
+    position:fixed;
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.08em;
+    color:var(--paper-dimmer);
+    z-index:40;
+    pointer-events:none;
+    text-transform:uppercase;
+  }
+  .frame-corner.tl{top:14px; left:18px;}
+  .frame-corner.tr{top:14px; right:18px; text-align:right;}
+  .frame-corner.bl{bottom:14px; left:18px;}
+  .frame-corner.br{bottom:14px; right:18px; text-align:right;}
+  @media (max-width:720px){ .frame-corner{display:none;} }
+
+  /* ---------- Nav ---------- */
+  header.site-nav{
+    position:sticky;
+    top:0;
+    z-index:30;
+    background:rgba(11,30,51,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 28px;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .brand{
+    font-family:var(--mono);
+    font-size:14px;
+    letter-spacing:0.02em;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .brand .dot{
+    width:8px; height:8px; border-radius:50%;
+    background:var(--amber);
+    box-shadow:0 0 0 3px rgba(242,169,59,0.18);
+  }
+  nav.links{display:flex; gap:26px; font-family:var(--mono); font-size:12.5px; letter-spacing:0.06em; text-transform:uppercase;}
+  nav.links a{text-decoration:none; color:var(--paper-dim); position:relative; padding-bottom:4px;}
+  nav.links a:hover{color:var(--paper);}
+  nav.links a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--amber);
+    transition:width .25s ease;
+  }
+  nav.links a:hover::after{width:100%;}
+
+  .nav-toggle{
+    display:none;
+    background:transparent;
+    border:1px solid var(--line-strong);
+    border-radius:var(--radius);
+    width:38px; height:34px;
+    padding:0;
+    cursor:pointer;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:5px;
+  }
+  .nav-toggle span{width:16px; height:1px; background:var(--paper-dim); display:block;}
+
+  @media (max-width:720px){
+    nav.links{
+      display:none;
+      position:absolute;
+      top:100%;
+      left:0;
+      right:0;
+      flex-direction:column;
+      gap:0;
+      background:var(--ink-850);
+      border-bottom:1px solid var(--line);
+    }
+    nav.links.open{display:flex;}
+    nav.links a{padding:14px 28px; border-bottom:1px solid var(--line);}
+    nav.links a:last-child{border-bottom:none;}
+    .nav-toggle{display:inline-flex;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:64px 0 56px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:48px;
+    align-items:center;
+  }
+  @media (max-width:900px){
+    .hero{padding:48px 0 40px;}
+    .hero-grid{grid-template-columns:1fr; gap:40px;}
+    .diagram-wrap{max-width:420px; margin:0 auto;}
+  }
+  @media (max-width:480px){
+    .wrap{padding:0 18px;}
+    .hero{padding:36px 0 32px;}
+    .cta-row{flex-direction:column; align-items:stretch;}
+    .btn{justify-content:center;}
+  }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--cyan);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{content:''; width:22px; height:1px; background:var(--cyan);}
+
+  .term{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--paper-dim);
+    margin-bottom:26px;
+    min-height:1.6em;
+    white-space:pre-wrap;
+  }
+  .term .cursor{
+    display:inline-block; width:7px; height:14px; background:var(--amber);
+    vertical-align:middle; margin-left:2px;
+    animation:blink 1s steps(1) infinite;
+  }
+  @keyframes blink{50%{opacity:0;}}
+
+  h1.name{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(2.2rem, 5vw, 3.6rem);
+    line-height:1.05;
+    margin:0 0 14px;
+    color:var(--paper);
+  }
+  h1.name .surname{color:var(--paper-dim); font-weight:500;}
+
+  .role-line{
+    font-family:var(--display);
+    font-size:clamp(1.1rem, 2.2vw, 1.4rem);
+    color:var(--amber);
+    margin:0 0 20px;
+    font-weight:600;
+  }
+
+  .hero-desc{
+    max-width:52ch;
+    color:var(--paper-dim);
+    font-size:15.5px;
+    margin-bottom:34px;
+  }
+
+  .cta-row{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:0.03em;
+    text-decoration:none;
+    padding:12px 20px;
+    border-radius:var(--radius);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    border:1px solid var(--line-strong);
+    transition:border-color .2s ease, background .2s ease, transform .15s ease;
+  }
+  .btn-primary{background:var(--amber); color:var(--ink-900); border-color:var(--amber); font-weight:600;}
+  .btn-primary:hover{transform:translateY(-1px); background:#ffb655;}
+  .btn-ghost{color:var(--paper-dim); background:transparent;}
+  .btn-ghost:hover{color:var(--paper); border-color:var(--paper-dim);}
+
+  /* ---------- Diagram (signature element) ---------- */
+  .diagram-wrap{
+    position:relative;
+    border:1px solid var(--line-strong);
+    background:linear-gradient(180deg, var(--ink-850), var(--ink-800));
+    border-radius:var(--radius);
+    padding:18px;
+  }
+  .diagram-label{
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--paper-dimmer);
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:10px;
+  }
+  svg.diagram{width:100%; height:auto; display:block;}
+  .node-circle{
+    fill:var(--ink-750);
+    stroke:var(--cyan-dim);
+    stroke-width:1;
+    transition:stroke .2s ease, fill .2s ease;
+  }
+  .node-group:hover .node-circle{stroke:var(--amber); fill:var(--ink-700, #17395a);}
+  .node-label{
+    font-family:var(--mono);
+    font-size:9.5px;
+    fill:var(--paper-dim);
+    text-anchor:middle;
+    pointer-events:none;
+  }
+  .node-group:hover .node-label{fill:var(--paper);}
+  .edge{
+    stroke:var(--line-strong);
+    stroke-width:1;
+    fill:none;
+    stroke-dasharray:4 3;
+  }
+  .core-node .node-circle{fill:var(--amber); stroke:var(--amber);}
+  .core-node .node-label{fill:var(--ink-900); font-weight:600;}
+
+  /* ---------- Sheet sections (shared) ---------- */
+  section.sheet{
+    padding:74px 0;
+    border-top:1px dashed var(--line-strong);
+    position:relative;
+  }
+  @media (max-width:600px){
+    section.sheet{padding:52px 0;}
+    .sheet-head{margin-bottom:28px;}
+  }
+  .sheet-head{
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+    margin-bottom:40px;
+    flex-wrap:wrap;
+  }
+  .sheet-code{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--cyan);
+    letter-spacing:0.08em;
+    border:1px solid var(--cyan-dim);
+    padding:3px 8px;
+    border-radius:var(--radius);
+  }
+  .sheet-title{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:clamp(1.5rem, 3vw, 2.1rem);
+    margin:0;
+  }
+  .sheet-sub{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--paper-dimmer);
+    margin-left:auto;
+  }
+  @media (max-width:600px){ .sheet-sub{margin-left:0;} }
+
+  /* --- About --- */
+  .about-body{
+    display:grid;
+    grid-template-columns:1.4fr 1fr;
+    gap:44px;
+  }
+  @media (max-width:820px){ .about-body{grid-template-columns:1fr;} }
+  .about-text p{color:var(--paper-dim); margin:0 0 16px; max-width:64ch;}
+  .about-text strong{color:var(--paper); font-weight:600;}
+
+  .fact-card{
+    border:1px solid var(--line);
+    background:var(--ink-850);
+    padding:20px 22px;
+    border-radius:var(--radius);
+  }
+  .fact-row{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    padding:9px 0;
+    border-bottom:1px solid var(--line);
+    font-size:13.5px;
+  }
+  .fact-row:last-child{border-bottom:none;}
+  .fact-key{font-family:var(--mono); color:var(--paper-dimmer); font-size:11.5px; text-transform:uppercase; letter-spacing:0.05em;}
+  .fact-val{color:var(--paper); text-align:right;}
+  .fact-val a{color:var(--cyan); text-decoration:none;}
+  .fact-val a:hover{text-decoration:underline;}
+
+  /* --- Revision log (experience) --- */
+  .revlog{border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;}
+  .revrow{
+    display:grid;
+    grid-template-columns:110px 1fr;
+    border-bottom:1px solid var(--line);
+  }
+  .revrow:last-child{border-bottom:none;}
+  .revrow .revmeta{
+    padding:22px 18px;
+    background:var(--ink-850);
+    border-right:1px solid var(--line);
+  }
+  .revrow .revbody{padding:24px 26px;}
+  .revtag{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--amber);
+    letter-spacing:0.05em;
+  }
+  .revdate{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--paper-dimmer);
+    margin-top:6px;
+  }
+  .revrole{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:1.12rem;
+    margin:0 0 3px;
+    color:var(--paper);
+  }
+  .revorg{
+    font-size:13px;
+    color:var(--cyan);
+    margin:0 0 14px;
+  }
+  .revlist{margin:0 0 16px; padding-left:18px; color:var(--paper-dim); font-size:14px;}
+  .revlist li{margin-bottom:6px;}
+  .revlist li::marker{color:var(--amber-dim);}
+  .tag-row{display:flex; flex-wrap:wrap; gap:7px;}
+  .tag{
+    font-family:var(--mono);
+    font-size:10.5px;
+    padding:3px 8px;
+    border:1px solid var(--line-strong);
+    border-radius:var(--radius);
+    color:var(--paper-dim);
+  }
+  @media (max-width:640px){
+    .revrow{grid-template-columns:1fr;}
+    .revrow .revmeta{border-right:none; border-bottom:1px solid var(--line); display:flex; gap:14px; align-items:center;}
+    .revrow .revmeta .revdate{margin-top:0;}
+  }
+
+  /* --- Skills legend --- */
+  .legend-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+  @media (max-width:820px){ .legend-grid{grid-template-columns:repeat(2, 1fr);} }
+  @media (max-width:520px){ .legend-grid{grid-template-columns:1fr;} }
+  .legend-cell{background:var(--ink-850); padding:22px 20px;}
+  .legend-cell h3{
+    font-family:var(--mono);
+    font-size:11.5px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--cyan);
+    margin:0 0 14px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .legend-cell h3::before{content:''; width:7px; height:7px; background:var(--cyan-dim); border-radius:1px; flex:none;}
+  .legend-cell ul{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:8px;}
+  .legend-cell li{
+    font-size:12.5px;
+    font-family:var(--mono);
+    color:var(--paper-dim);
+    padding:5px 9px;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+  }
+
+  /* --- Projects --- */
+  .proj-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px;
+  }
+  @media (max-width:820px){ .proj-grid{grid-template-columns:1fr;} }
+  .proj-card{
+    border:1px solid var(--line);
+    background:var(--ink-850);
+    padding:26px;
+    border-radius:var(--radius);
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .proj-year{font-family:var(--mono); font-size:11px; color:var(--paper-dimmer);}
+  .proj-title{font-family:var(--display); font-weight:600; font-size:1.15rem; margin:0; color:var(--paper);}
+  .proj-desc{font-size:13.8px; color:var(--paper-dim); margin:0;}
+
+  /* --- Education & languages --- */
+  .edu-lang-grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:44px;
+  }
+  @media (max-width:820px){ .edu-lang-grid{grid-template-columns:1fr;} }
+  .edu-item{
+    display:grid;
+    grid-template-columns:78px 1fr;
+    gap:16px;
+    padding:16px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .edu-item:last-child{border-bottom:none;}
+  .edu-year{font-family:var(--mono); font-size:12px; color:var(--amber);}
+  .edu-title{font-weight:600; font-size:14.5px; color:var(--paper); margin:0 0 3px;}
+  .edu-org{font-size:12.5px; color:var(--paper-dimmer); margin:0;}
+
+  .langs-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+  table.langs{width:100%; min-width:420px; border-collapse:collapse; font-size:13px;}
+  table.langs th, table.langs td{
+    padding:9px 6px;
+    text-align:center;
+    border-bottom:1px solid var(--line);
+    font-family:var(--mono);
+  }
+  table.langs th{color:var(--paper-dimmer); font-weight:500; font-size:10.5px; text-transform:uppercase; letter-spacing:0.04em;}
+  table.langs td:first-child, table.langs th:first-child{text-align:left; color:var(--paper);}
+  .lvl{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:26px; height:22px; border-radius:var(--radius);
+    font-size:11px;
+  }
+  .lvl-c2{background:rgba(242,169,59,0.16); color:var(--amber);}
+  .lvl-a2{background:rgba(111,216,224,0.14); color:var(--cyan);}
+
+  /* --- Footer / contact --- */
+  footer.sheet-index{
+    padding:70px 0 60px;
+    border-top:1px dashed var(--line-strong);
+  }
+  .idx-grid{
+    display:grid;
+    grid-template-columns:1.2fr 1fr;
+    gap:40px;
+    align-items:end;
+  }
+  @media (max-width:820px){ .idx-grid{grid-template-columns:1fr; align-items:start;} }
+  .idx-title{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(1.7rem, 3.6vw, 2.6rem);
+    margin:0 0 16px;
+  }
+  .idx-title .amber{color:var(--amber);}
+  .idx-desc{color:var(--paper-dim); max-width:44ch; margin:0 0 26px; font-size:14.5px;}
+  .idx-links{display:flex; flex-direction:column; gap:2px;}
+  .idx-link{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 4px;
+    border-bottom:1px solid var(--line);
+    text-decoration:none;
+    font-family:var(--mono);
+    font-size:13.5px;
+    color:var(--paper-dim);
+    transition:color .2s ease, padding-left .2s ease;
+  }
+  .idx-link span.arrow{color:var(--amber); opacity:0; transition:opacity .2s ease;}
+  .idx-link:hover{color:var(--paper); padding-left:8px;}
+  .idx-link:hover span.arrow{opacity:1;}
+  .foot-bottom{
+    margin-top:56px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--paper-dimmer);
+    letter-spacing:0.04em;
+  }
+
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="frame-corner tl">GDD // PORTFÓLIO</div>
+<div class="frame-corner tr">FOLHA 01–06<br>ESC. 1:1</div>
+<div class="frame-corner bl">SETÚBAL, PT</div>
+<div class="frame-corner br">REV. 2026.08</div>
+
+<header class="site-nav">
+  <div class="nav-inner" style="position:relative;">
+    <div class="brand"><span class="dot"></span> gilberto.djacari</div>
+    <nav class="links" id="navLinks">
+      <a href="#sobre">Sobre</a>
+      <a href="#experiencia">Experiência</a>
+      <a href="#competencias">Competências</a>
+      <a href="#projetos">Projetos</a>
+      <a href="#formacao">Formação</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Platform Engineering / DevOps</div>
+        <div class="term" id="term"></div>
+        <h1 class="name">Gilberto Duarte<br><span class="surname">Djacari</span></h1>
+        <p class="role-line">Platform Engineer · DevOps Engineer</p>
+        <p class="hero-desc">Desenho e mantenho a infraestrutura que leva aplicações a produção com estabilidade — Terraform, Azure, Kubernetes e pipelines CI/CD, com raízes em desenvolvimento Full Stack Python/Django.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="mailto:devdjacari@gmail.com">Enviar email</a>
+          <a class="btn btn-ghost" href="https://github.com/gilbertodjacari" target="_blank" rel="noopener">Ver GitHub</a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/gilberto-duarte-djacari-aa48bb237" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+
+      <div class="diagram-wrap reveal" id="diagramWrap">
+        <div class="diagram-label"><span>stack.tf — arquitetura</span><span>nós: 14</span></div>
+        <svg class="diagram" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagrama de arquitetura ligando Gilberto às tecnologias que utiliza: Terraform, GitHub Actions, Azure, Kubernetes, Docker, Ansible, Prometheus, Grafana, Jenkins, Django, Django REST Framework, Flask, FastAPI">
+          <g id="edges"></g>
+          <g id="nodes"></g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet" id="sobre">
+    <div class="wrap">
+      <div class="sheet-head reveal">
+        <span class="sheet-code">FOLHA A-01</span>
+        <h2 class="sheet-title">Sobre mim</h2>
+        <span class="sheet-sub">memória descritiva</span>
+      </div>
+      <div class="about-body reveal">
+        <div class="about-text">
+          <p><strong>Engenheiro Informático</strong> com experiência em desenvolvimento Full Stack (Python/Django) e atualmente <strong>Platform Engineer / DevOps Engineer</strong>, onde lidero a implementação da estratégia DevOps e DevSecOps da organização.</p>
+          <p>Experiência no desenho de arquiteturas de plataforma, Infrastructure as Code com <strong>Terraform</strong>, pipelines CI/CD com <strong>GitHub Actions</strong>, administração de <strong>Microsoft Azure</strong> e <strong>Azure Key Vault</strong>, automação com <strong>Ansible</strong>, containerização com <strong>Docker</strong>, observabilidade com <strong>Prometheus e Grafana</strong> e administração de ambientes Linux.</p>
+          <p>Atualmente frequenta a Pós-Graduação em Virtualização e Cloud Computing, aprofundando competências em <strong>Kubernetes</strong> e Platform Engineering.</p>
+        </div>
+        <div class="fact-card">
+          <div class="fact-row"><span class="fact-key">Localização</span><span class="fact-val">Setúbal, Portugal</span></div>
+          <div class="fact-row"><span class="fact-key">Email</span><span class="fact-val"><a href="mailto:devdjacari@gmail.com">devdjacari@gmail.com</a></span></div>
+          <div class="fact-row"><span class="fact-key">Telefone</span><span class="fact-val">+351 932 477 636</span></div>
+          <div class="fact-row"><span class="fact-key">Site</span><span class="fact-val"><a href="https://devdjacari.com/" target="_blank" rel="noopener">devdjacari.com</a></span></div>
+          <div class="fact-row"><span class="fact-key">GitHub</span><span class="fact-val"><a href="https://github.com/gilbertodjacari" target="_blank" rel="noopener">gilbertodjacari</a></span></div>
+          <div class="fact-row"><span class="fact-key">LinkedIn</span><span class="fact-val"><a href="https://www.linkedin.com/in/gilberto-duarte-djacari-aa48bb237" target="_blank" rel="noopener">in/gilberto-djacari</a></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet" id="experiencia">
+    <div class="wrap">
+      <div class="sheet-head reveal">
+        <span class="sheet-code">FOLHA A-02</span>
+        <h2 class="sheet-title">Experiência profissional</h2>
+        <span class="sheet-sub">registo de revisões</span>
+      </div>
+
+      <div class="revlog reveal">
+        <div class="revrow">
+          <div class="revmeta">
+            <div class="revtag">REV. 03</div>
+            <div class="revdate">06/2026 — Atual</div>
+          </div>
+          <div class="revbody">
+            <p class="revrole">Platform Engineer | DevOps Engineer</p>
+            <p class="revorg">Associação Portuguesa Promotora de Saúde e Higiene Oral — Amora, Portugal</p>
+            <ul class="revlist">
+              <li>Liderança da implementação da cultura DevOps e DevSecOps.</li>
+              <li>Desenho da arquitetura da plataforma garantindo escalabilidade, resiliência e elevada disponibilidade.</li>
+              <li>Implementação da infraestrutura utilizando Terraform (Infrastructure as Code).</li>
+              <li>Desenvolvimento de pipelines CI/CD com GitHub Actions.</li>
+              <li>Administração da infraestrutura em Microsoft Azure e gestão segura de segredos com Azure Key Vault.</li>
+              <li>Containerização de aplicações com Docker e Docker Compose; automação com Ansible.</li>
+              <li>Configuração de Nginx e Traefik; observabilidade com Prometheus e Grafana.</li>
+              <li>Administração de ambientes Linux e troubleshooting; colaboração com equipas de desenvolvimento para melhoria contínua do ciclo de entrega.</li>
+            </ul>
+            <div class="tag-row">
+              <span class="tag">Terraform</span><span class="tag">GitHub Actions</span><span class="tag">Azure</span>
+              <span class="tag">Azure Key Vault</span><span class="tag">Docker</span><span class="tag">Docker Compose</span>
+              <span class="tag">Ansible</span><span class="tag">Linux</span><span class="tag">Prometheus</span>
+              <span class="tag">Grafana</span><span class="tag">Nginx</span><span class="tag">Traefik</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="revrow">
+          <div class="revmeta">
+            <div class="revtag">REV. 02</div>
+            <div class="revdate">01/2024 — 05/2026</div>
+          </div>
+          <div class="revbody">
+            <p class="revrole">Full Stack Python Developer</p>
+            <p class="revorg">Associação Portuguesa Promotora de Saúde e Higiene Oral — Amora, Portugal</p>
+            <ul class="revlist">
+              <li>Desenvolvimento de aplicações web com Python, Django e Django REST Framework.</li>
+              <li>Desenvolvimento de APIs REST e de interfaces com React.</li>
+              <li>Integração com bases de dados PostgreSQL e MySQL.</li>
+              <li>Utilização de Docker no desenvolvimento e implementação de testes automatizados.</li>
+              <li>Gestão de código com Git/GitHub.</li>
+            </ul>
+            <div class="tag-row">
+              <span class="tag">Python</span><span class="tag">Django</span><span class="tag">DRF</span>
+              <span class="tag">React</span><span class="tag">PostgreSQL</span><span class="tag">MySQL</span>
+              <span class="tag">Docker</span><span class="tag">Git</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet" id="competencias">
+    <div class="wrap">
+      <div class="sheet-head reveal">
+        <span class="sheet-code">FOLHA A-03</span>
+        <h2 class="sheet-title">Competências técnicas</h2>
+        <span class="sheet-sub">legenda</span>
+      </div>
+      <div class="legend-grid reveal">
+        <div class="legend-cell">
+          <h3>Platform Engineering & DevOps</h3>
+          <ul>
+            <li>Terraform</li><li>GitHub Actions</li><li>Jenkins</li><li>Docker</li><li>Docker Compose</li>
+            <li>Ansible</li><li>Linux</li><li>Microsoft Azure</li><li>Azure Key Vault</li>
+            <li>Nginx</li><li>Traefik</li>
+          </ul>
+        </div>
+        <div class="legend-cell">
+          <h3>Containers & Cloud</h3>
+          <ul>
+            <li>Docker</li><li>Kubernetes</li><li>Microsoft Azure</li>
+          </ul>
+        </div>
+        <div class="legend-cell">
+          <h3>Observabilidade</h3>
+          <ul>
+            <li>Prometheus</li><li>Grafana</li>
+          </ul>
+        </div>
+        <div class="legend-cell">
+          <h3>Backend</h3>
+          <ul>
+            <li>Python</li><li>Django</li><li>Django REST Framework</li><li>Flask</li>
+            <li>FastAPI</li><li>REST APIs</li>
+          </ul>
+        </div>
+        <div class="legend-cell">
+          <h3>Frontend</h3>
+          <ul>
+            <li>React</li>
+          </ul>
+        </div>
+        <div class="legend-cell">
+          <h3>Bases de dados</h3>
+          <ul>
+            <li>PostgreSQL</li><li>MySQL</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet" id="projetos">
+    <div class="wrap">
+      <div class="sheet-head reveal">
+        <span class="sheet-code">FOLHA A-04</span>
+        <h2 class="sheet-title">Projetos</h2>
+        <span class="sheet-sub">fichas técnicas</span>
+      </div>
+      <div class="proj-grid reveal">
+        <div class="proj-card">
+          <span class="proj-year">2026</span>
+          <h3 class="proj-title">Projeto Técnico — Pós-Graduação em Virtualização e Cloud Computing</h3>
+          <p class="proj-desc">Cluster Kubernetes para simulação de ambientes de produção, com deploy de aplicações containerizadas em Docker, pipelines CI/CD em Jenkins e monitorização com Prometheus e Grafana. Inclui simulação de escalabilidade, rolling updates, recuperação de falhas e troubleshooting.</p>
+          <div class="tag-row">
+            <span class="tag">Kubernetes</span><span class="tag">Docker</span><span class="tag">Jenkins</span>
+            <span class="tag">Prometheus</span><span class="tag">Grafana</span>
+          </div>
+        </div>
+        <div class="proj-card">
+          <span class="proj-year">2023</span>
+          <h3 class="proj-title">Luxury Cars — Sistema Web de Aluguer de Viaturas</h3>
+          <p class="proj-desc">Aplicação web para gestão de aluguer de viaturas com Django (MVT) e Bootstrap: autenticação de utilizadores, módulo de reservas com cálculo automático do valor por datas, gestão de veículos e categorias via Django Admin, e controlo de acesso por perfil de cliente.</p>
+          <div class="tag-row">
+            <span class="tag">Python</span><span class="tag">Django</span><span class="tag">Django Admin</span>
+            <span class="tag">Bootstrap</span><span class="tag">MySQL</span><span class="tag">PostgreSQL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet" id="formacao">
+    <div class="wrap">
+      <div class="sheet-head reveal">
+        <span class="sheet-code">FOLHA A-05</span>
+        <h2 class="sheet-title">Formação & idiomas</h2>
+        <span class="sheet-sub">habilitações</span>
+      </div>
+      <div class="edu-lang-grid reveal">
+        <div>
+          <div class="edu-item">
+            <div class="edu-year">2025–<br>atual</div>
+            <div>
+              <p class="edu-title">Pós-Graduação em Virtualização e Cloud Computing</p>
+              <p class="edu-org">Istec — Lisboa, Portugal</p>
+            </div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-year">2022</div>
+            <div>
+              <p class="edu-title">Licenciatura em Ciências da Comunicação</p>
+              <p class="edu-org">Faculdade de Ciências Sociais e Humanas, Universidade Nova de Lisboa — Bissau, Guiné-Bissau</p>
+            </div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-year">2018</div>
+            <div>
+              <p class="edu-title">Licenciatura em Engenharia Informática</p>
+              <p class="edu-org">Escola Superior de Informática Green Hard & Soft</p>
+            </div>
+          </div>
+        </div>
+        <div class="langs-scroll">
+          <table class="langs">
+            <thead>
+              <tr><th>Idioma</th><th>Compreensão oral</th><th>Leitura</th><th>Prod. oral</th><th>Interação oral</th><th>Escrita</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Português</td>
+                <td><span class="lvl lvl-c2">C2</span></td><td><span class="lvl lvl-c2">C2</span></td>
+                <td><span class="lvl lvl-c2">C2</span></td><td><span class="lvl lvl-c2">C2</span></td><td><span class="lvl lvl-c2">C2</span></td>
+              </tr>
+              <tr>
+                <td>Inglês</td>
+                <td><span class="lvl lvl-a2">A2</span></td><td><span class="lvl lvl-a2">A2</span></td>
+                <td><span class="lvl lvl-a2">A2</span></td><td><span class="lvl lvl-a2">A2</span></td><td><span class="lvl lvl-a2">A2</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="sheet-index" id="contacto">
+  <div class="wrap">
+    <div class="sheet-head reveal">
+      <span class="sheet-code">FOLHA A-06</span>
+      <h2 class="sheet-title" style="margin:0;">Contacto</h2>
+      <span class="sheet-sub">índice de folhas</span>
+    </div>
+    <div class="idx-grid reveal">
+      <div>
+        <p class="idx-title">Vamos falar sobre <span class="amber">infraestrutura</span>.</p>
+        <p class="idx-desc">Disponível para oportunidades em Platform Engineering, DevOps e desenvolvimento Full Stack. Resposta por email ou LinkedIn.</p>
+      </div>
+      <div class="idx-links">
+        <a class="idx-link" href="mailto:devdjacari@gmail.com">devdjacari@gmail.com <span class="arrow">→</span></a>
+        <a class="idx-link" href="https://github.com/gilbertodjacari" target="_blank" rel="noopener">github.com/gilbertodjacari <span class="arrow">→</span></a>
+        <a class="idx-link" href="https://www.linkedin.com/in/gilberto-duarte-djacari-aa48bb237" target="_blank" rel="noopener">linkedin.com/in/gilberto-duarte-djacari <span class="arrow">→</span></a>
+        <a class="idx-link" href="https://devdjacari.com/" target="_blank" rel="noopener">devdjacari.com <span class="arrow">→</span></a>
+        <a class="idx-link" href="tel:+351932477636">+351 932 477 636 <span class="arrow">→</span></a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Gilberto Duarte Djacari</span>
+      <span>Setúbal, Portugal</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mobile nav toggle
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => {
+  const isOpen = navLinks.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', String(isOpen));
+});
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  });
+});
+
+// Terminal boot text
+const term = document.getElementById('term');
+const lines = [
+  '$ terraform plan',
+  '+ resource "engineer" "gilberto" { role = "Platform Engineer / DevOps" }',
+  'Plan: 1 to add, 0 to change, 0 to destroy.'
+];
+let li = 0, ci = 0, out = '';
+function typeTerm(){
+  if(li >= lines.length){ term.innerHTML = out + '<span class="cursor"></span>'; return; }
+  const line = lines[li];
+  if(ci <= line.length){
+    term.innerHTML = out + line.slice(0, ci) + '<span class="cursor"></span>';
+    ci++;
+    setTimeout(typeTerm, 18);
+  } else {
+    out += line + '\n';
+    li++; ci = 0;
+    setTimeout(typeTerm, 220);
+  }
+}
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  term.textContent = lines.join('\n');
+} else {
+  typeTerm();
+}
+
+// Architecture diagram: Gilberto at core, tech stack as connected nodes
+(function(){
+  const center = { x:240, y:240 };
+  const ring = { radius:195, nodeR:32 };
+
+  const outer = [
+    'Terraform', 'GitHub\nActions', 'Azure', 'Kubernetes',
+    'Jenkins', 'Docker', 'Ansible', 'Prometheus', 'Grafana',
+    'Django', 'DRF', 'Flask', 'FastAPI'
+  ];
+
+  const nodesData = [
+    { id:'core', label:'GDD', x:center.x, y:center.y, core:true, r:36 }
+  ];
+  outer.forEach((label, i) => {
+    const angle = (-90 + i * (360 / outer.length)) * (Math.PI / 180);
+    nodesData.push({
+      id:'n' + i,
+      label,
+      x: Math.round(center.x + ring.radius * Math.cos(angle)),
+      y: Math.round(center.y + ring.radius * Math.sin(angle)),
+      r: ring.nodeR
+    });
+  });
+
+  const edgesG = document.getElementById('edges');
+  const nodesG = document.getElementById('nodes');
+  const core = nodesData.find(n => n.core);
+
+  nodesData.filter(n => !n.core).forEach(n => {
+    const path = document.createElementNS('http://www.w3.org/2000/svg','line');
+    path.setAttribute('x1', core.x); path.setAttribute('y1', core.y);
+    path.setAttribute('x2', n.x); path.setAttribute('y2', n.y);
+    path.setAttribute('class','edge');
+    edgesG.appendChild(path);
+  });
+
+  nodesData.forEach(n => {
+    const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.setAttribute('class', 'node-group' + (n.core ? ' core-node' : ''));
+    g.setAttribute('tabindex','0');
+
+    const circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    circle.setAttribute('cx', n.x); circle.setAttribute('cy', n.y);
+    circle.setAttribute('r', n.r); circle.setAttribute('class','node-circle');
+    g.appendChild(circle);
+
+    const labelLines = n.label.split('\n');
+    const textEls = [];
+    labelLines.forEach((ln, i) => {
+      const text = document.createElementNS('http://www.w3.org/2000/svg','text');
+      text.setAttribute('x', n.x);
+      text.setAttribute('y', n.y + (i - (labelLines.length-1)/2) * 11 + 3);
+      text.setAttribute('class','node-label');
+      text.textContent = ln;
+      g.appendChild(text);
+      textEls.push(text);
+    });
+
+    nodesG.appendChild(g);
+  });
+
+  // Shrink label text to fit inside its circle (handles long single-word labels like Kubernetes/Prometheus)
+  requestAnimationFrame(() => {
+    nodesG.querySelectorAll('.node-group').forEach(g => {
+      const circle = g.querySelector('circle');
+      const texts = g.querySelectorAll('text');
+      const r = parseFloat(circle.getAttribute('r'));
+      const maxWidth = r * 2 - 10;
+      let size = 13;
+      const fits = () => Array.from(texts).every(t => t.getComputedTextLength() <= maxWidth);
+      while (!fits() && size > 8) {
+        size -= 0.5;
+        texts.forEach(t => t.setAttribute('font-size', size + 'px'));
+      }
+    });
+  });
+})();
+
+// Reveal on scroll
+const revealEls = document.querySelectorAll('.reveal');
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+} else {
+  revealEls.forEach(el => el.classList.add('in'));
+}
+</script>
+
+</body>
+</html>
