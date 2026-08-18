@@ -1,0 +1,47 @@
+name: Auto Merge PRs
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+
+jobs:
+  auto-merge:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auto-merge approved PRs (requires label `auto-merge`)
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            const head_branch = context.payload.workflow_run.head_branch;
+            console.log(`Checking open PRs targeting main for head branch: ${head_branch}`);
+            const prs = await github.rest.pulls.list({ owner, repo, state: 'open', base: 'main' });
+            for (const pr of prs.data) {
+              if (pr.head.ref !== head_branch) continue;
+              console.log(`Found PR #${pr.number} (${pr.head.ref} -> ${pr.base.ref})`);
+              // Skip if PR has label 'do-not-merge' or does not have 'auto-merge'
+              const labels = pr.labels.map(l => l.name);
+              if (labels.includes('do-not-merge')) {
+                console.log(`PR #${pr.number} has label 'do-not-merge' — skipping`);
+                continue;
+              }
+              if (!labels.includes('auto-merge')) {
+                console.log(`PR #${pr.number} is not labeled 'auto-merge' — skipping`);
+                continue;
+              }
+              const reviews = await github.rest.pulls.listReviews({ owner, repo, pull_number: pr.number });
+              const approvals = new Set(reviews.data.filter(r => r.state === 'APPROVED').map(r => r.user.login));
+              if (approvals.size < 1) {
+                console.log(`PR #${pr.number} has ${approvals.size} approvals — skipping`);
+                continue;
+              }
+              const prInfo = await github.rest.pulls.get({ owner, repo, pull_number: pr.number });
+              if (prInfo.data.mergeable === false) {
+                console.log(`PR #${pr.number} is not mergeable — skipping`);
+                continue;
+              }
+              await github.rest.pulls.merge({ owner, repo, pull_number: pr.number, merge_method: 'merge' });
+              console.log(`Merged PR #${pr.number}`);
+            }
